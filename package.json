@@ -1,0 +1,35 @@
+{
+  "name": "seed-project",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./server/server.js",
+    "build-prod": "NODE_ENV=production webpack --config webpack/prod.config.js",
+    "all": "webpack && node ./server/server.js",
+    "dev-server": "./node_modules/nodemon/bin/nodemon.js ./server/server.js -e html",
+    "fe-dev": " NODE_ENV=development webpack --config webpack/dev.config.js",
+    "start-dev": "concurrently \"npm:dev-server\" \"npm:fe-dev\""
+  },
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "concurrently": "^4.0.1",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "ejs": "^2.5.8",
+    "express": "~4.16.3",
+    "morgan": "~1.0.0",
+    "nodemon": "^1.18.4",
+    "static-favicon": "~1.0.0",
+    "webpack-merge": "^4.1.4"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  }
+}
