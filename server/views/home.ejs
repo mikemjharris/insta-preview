@@ -5,16 +5,17 @@
     <meta charset="utf-8">
     <title>Seed Project</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link  rel='stylesheet' href='style.css' />
+    <link  rel='stylesheet' href='/style.css' />
     <link rel="icon" href="/images/favicon.png">
 
-    <script src="bundle.js"></script>
+    <script src="/bundle.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ data.title }}">
 </head>
 
 <body>
-		<h1><%= data.title %></h4>
+  <img src="<%= data.title %>" />
     <section>
       <p>Some content</p>
     </section>

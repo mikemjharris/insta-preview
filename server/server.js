@@ -21,14 +21,32 @@ app.use(express.static(path.join(__dirname, '../public')));
 // set the view engine to ejs
 app.set('view engine', 'ejs')
 
-require('./routes/main')(app);
+const https = require('https');
 
-// blog home page
-app.get('/', (req, res) => {
-  // render `home.ejs` with the list of posts
-  res.render('home', { data: { title: 'My Seed Project'}})
+app.get('/p/*', (req, response) => {
+  console.log(req.path);
+  let data = ""
+  let rex = new RegExp(/.*display_resources.*/)
+  const url ='https://www.instagram.com' + req.path + '/';
+  console.log(url);
+  https.get(url, (res) => {
+        res.on('data', (d) => {
+            data += d
+        });
+        res.on('end', () => {
+          const script = data.match(rex)[0]
+          const img = JSON.parse(script.match(/.*?({.*);/)[1]).entry_data.PostPage[0].graphql.shortcode_media.display_url
+          response.render('home', { data: { title: img}})
+        })
+
+  }).on('error', (e) => {
+    console.error(e);
+  })
+
+
 })
 
+require('./routes/main')(app);
 
 // displays static main.html
 app.get('*', function ( req, res, next ) {
@@ -51,25 +69,6 @@ if (app.get('env') === 'development') {
   });
 }
 
-const https = require('https');
-
-let data = ""
-let rex = new RegExp(/.*display_resources.*/)
-const req = https.get('https://www.instagram.com/p/B5F0TjuHAsn/', (res) => {
-  console.log('statusCode:', res.statusCode);
-  console.log('headers:', res.headers);
-      res.on('data', (d) => {
-          data += d
-      });
-      res.on('end', () => {
-        const script = data.match(rex)[0]
-       // console.log(script);
-        console.log(JSON.parse(script.match(/.*?({.*);/)[1]).entry_data.PostPage[0].graphql.shortcode_media.display_url)
-      })
-
-}).on('error', (e) => {
-  console.error(e);
-})
 
 
 app.use(function ( err, req, res ) {
