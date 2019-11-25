@@ -9,8 +9,6 @@ ADD . /var/www/
 
 WORKDIR /var/www/
 
-RUN npm install 
-
 RUN npm run build-prod
 
 CMD npm start
