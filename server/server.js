@@ -24,7 +24,7 @@ app.set('view engine', 'ejs')
 const https = require('https');
 
 app.get('/p/*', (req, response) => {
-  console.log(req.path);
+  console.log(req.path, "***");
   let data = ""
   let rex = new RegExp(/.*display_resources.*/)
   const url ='https://www.instagram.com' + req.path + '/';
@@ -34,9 +34,9 @@ app.get('/p/*', (req, response) => {
             data += d
         });
         res.on('end', () => {
-          const script = data.match(rex)[0]
-          const img = JSON.parse(script.match(/.*?({.*);/)[1]).entry_data.PostPage[0].graphql.shortcode_media.display_url
-          response.render('home', { data: { title: img}})
+          const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
+          const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
+          response.render('home', { data: { image: image, description: description}})
         })
 
   }).on('error', (e) => {
