@@ -43,15 +43,16 @@ app.get('/p/*', (req, response) => {
     console.error(e);
   })
 
-
 })
 
-require('./routes/main')(app);
-
+app.get('/', function ( req, res, next ) {
+  res.render('main.html')
+})
 // displays static main.html
 app.get('*', function ( req, res, next ) {
   res.redirect('../');
 });
+
 
 app.use(function (req, res, next ) {
     var err = new Error('Not Found');
