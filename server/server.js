@@ -23,12 +23,32 @@ app.set('view engine', 'ejs')
 
 const https = require('https');
 
+app.get('/api/image-data/*', (req, response) => {
+  const path = req.path.match(/image-data\/(.*)/)[1];
+  console.log(path);
+  let data = ""
+  const url ='https://www.instagram.com/' + path + '/';
+  console.log(url);
+  https.get(url, (res) => {
+        res.on('data', (d) => {
+            data += d
+        });
+        res.on('end', () => {
+          const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
+          const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
+          response.send( { data: { image: image, description: description}})
+        })
+
+  }).on('error', (e) => {
+    console.error(e);
+  })
+
+})
+
 app.get('/p/*', (req, response) => {
   console.log(req.path, "***");
   let data = ""
-  let rex = new RegExp(/.*display_resources.*/)
   const url ='https://www.instagram.com' + req.path + '/';
-  console.log(url);
   https.get(url, (res) => {
         res.on('data', (d) => {
             data += d

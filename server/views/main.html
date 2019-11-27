@@ -10,6 +10,19 @@
   </script>
   </head>
   <body>
-    <h1>Seed Project</h1>
+    <h1>Instagram twitter preview</h1>
+    <p>Creae a twitter preview card for your instagram post.</p>
+
+    <p>Find an image in instagram, click on the image and then copy the url (something like https://www.instagram.com/p/B5F0TjuHAsn/) into the box below. </p>
+
+
+    <input placeholder="https://www.instagram.com/p/B5F0TjuHAsn/" type="text" />
+    <button id="preview">preview</button>
+
+    <script>
+       fetch('/api/image-data/p/B5F0TjuHAsn')
+         .then((data) => data.json())
+         .then((data) => console.log(data))
+    </script>
   </body>
 </html>
