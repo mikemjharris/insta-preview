@@ -15,14 +15,24 @@
 
     <p>Find an image in instagram, click on the image and then copy the url (something like https://www.instagram.com/p/B5F0TjuHAsn/) into the box below. </p>
 
+    <p>Click the preview button to get a preview or the copy button then paste into your tweet</p>
 
     <input placeholder="https://www.instagram.com/p/B5F0TjuHAsn/" type="text" />
-    <button id="preview">preview</button>
+    <button id="preview">preview</button><button id="copy">Copy link to share</button>
+    <h1 id="title"></h1>
+    <img id="image" src="" />
 
     <script>
+      document.getElementById('preview').onclick = () => {
+
        fetch('/api/image-data/p/B5F0TjuHAsn')
          .then((data) => data.json())
-         .then((data) => console.log(data))
+          .then((data) => {
+            console.log(data.data.image);
+            document.getElementById('image').src = data.data.image
+            document.getElementById('title').innerHTML = data.data.description
+          })
+      }
     </script>
   </body>
 </html>
