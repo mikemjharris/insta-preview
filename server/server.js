@@ -29,19 +29,25 @@ app.get('/api/image-data/*', (req, response) => {
   let data = ""
   const url ='https://www.instagram.com/' + path + '/';
   console.log(url);
-  https.get(url, (res) => {
-        res.on('data', (d) => {
-            data += d
-        });
-        res.on('end', () => {
-          const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
-          const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
-          response.send( { data: { image: image, description: description}})
-        })
+  try {
+    https.get(url, (res) => {
+          res.on('data', (d) => {
+              data += d
+          });
+          res.on('end', () => {
+              const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
+              const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
+              response.send( { data: { image: image, description: description}})
+          })
 
-  }).on('error', (e) => {
-    console.error(e);
-  })
+    }).on('error', (e) => {
+      console.error(e);
+    })
+   }
+   catch(error) {
+    console.log(error);
+    response.send( { data: { image: "", description: ""}});
+  }
 
 })
 
@@ -49,19 +55,30 @@ app.get('/p/*', (req, response) => {
   console.log(req.path, "***");
   let data = ""
   const url ='https://www.instagram.com' + req.path + '/';
-  https.get(url, (res) => {
-        res.on('data', (d) => {
-            data += d
-        });
-        res.on('end', () => {
-          const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
-          const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
-          response.render('home', { data: { image: image, description: description}})
-        })
+  try {
+    https.get(url, (res) => {
+          res.on('data', (d) => {
+              data += d
+          });
+          res.on('end', () => {
+            try {
+              const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
+              const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
+              response.render('home', { data: { image: image, description: description}})
+            }
+            catch(error) {
+              console.log(error);
+              response.render('home', { data: { image: "", description: ""}});
+            }
+          })
 
-  }).on('error', (e) => {
-    console.error(e);
-  })
+    }).on('error', (e) => {
+      console.error(e);
+    })
+    } catch(eror) {
+      console.log(error);
+      response.render('home', { data: { image: "", description: ""}});
+    }
 
 })
 
