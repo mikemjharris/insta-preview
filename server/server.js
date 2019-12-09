@@ -23,70 +23,59 @@ app.set('view engine', 'ejs')
 
 const https = require('https');
 
-const TEST_DATA = {
-  description: 'Test description',
-  image: '/images/favicon.png'
+const getInstaData = (path) => {
+  let data = ""
+  const url ='https://www.instagram.com/' + path + '/';
+  console.log(url);
+  return new Promise((resolve, reject) => {
+    if (process.evn.DATA == 'test') {
+      const TEST_DATA = {
+        description: 'Test description',
+        image: '/images/favicon.png'
+      }
+      resolve(TEST_DATA);
+      return
+    }
+    try {
+      https.get(url, (res) => {
+        res.on('data', (d) => {
+          data += d
+        });
+        res.on('end', () => {
+          const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
+          const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
+          resolve({ image: image, description: description});
+        })
+      }).on('error', (e) => {
+        console.error(e);
+        reject(e);
+      })
+   }
+   catch(error) {
+    console.log(error);
+    // TODO workout what data to send back
+    resolve({ image: "", description: ""});
+    }
+  })
 }
 
 app.get('/api/image-data/*', (req, response) => {
   const path = req.path.match(/image-data\/(.*)/)[1];
   console.log(path);
-  let data = ""
-  const url ='https://www.instagram.com/' + path + '/';
-  console.log(url);
-  response.send( { data: TEST_DATA});
-  return
-  try {
-    https.get(url, (res) => {
-          res.on('data', (d) => {
-              data += d
-          });
-          res.on('end', () => {
-              const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
-              const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
-              response.send( { data: { image: image, description: description}})
-          })
-
-    }).on('error', (e) => {
-      console.error(e);
-    })
-   }
-   catch(error) {
-    console.log(error);
-    response.send( { data: { image: "", description: ""}});
-  }
-
+  getInstaData(path)
+  .then((data) => {
+    response.send({ data: data})
+  })
 })
 
 app.get('/p/*', (req, response) => {
   console.log(req.path, "***");
   let data = ""
-  const url ='https://www.instagram.com' + req.path + '/';
-  try {
-    https.get(url, (res) => {
-          res.on('data', (d) => {
-              data += d
-          });
-          res.on('end', () => {
-            try {
-              const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
-              const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
-              response.render('home', { data: { image: image, description: description}})
-            }
-            catch(error) {
-              console.log(error);
-              response.render('home', { data: { image: "", description: ""}});
-            }
-          })
-
-    }).on('error', (e) => {
-      console.error(e);
-    })
-    } catch(eror) {
-      console.log(error);
-      response.render('home', { data: { image: "", description: ""}});
-    }
-
+  const path ='https://www.instagram.com' + req.path + '/';
+  getInstaData(path)
+  .then((data) => {
+    response.send({ data: data})
+  })
 })
 
 app.get('/', function ( req, res, next ) {
