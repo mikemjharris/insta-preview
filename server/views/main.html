@@ -5,7 +5,6 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link  rel='stylesheet' href='style.css' />
     <link rel="icon"href="/images/favicon.png">
-    <script src="bundle.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   </script>
@@ -19,22 +18,14 @@
 
     <p>Click the preview button to get a preview or the copy button then paste into your tweet</p>
 
-    <input placeholder="https://www.instagram.com/p/B5F0TjuHAsn/" type="text" />
+    <input id="inputLink" placeholder="https://www.instagram.com/p/B5F0TjuHAsn/" type="text" />
+    <br>
     <button id="preview">preview</button><button id="copy">Copy link to share</button>
     <h1 id="title"></h1>
     <img id="image" src="" />
 
-    <script>
-      document.getElementById('preview').onclick = () => {
+    <div id="link"></div>
 
-       fetch('/api/image-data/p/B5F0TjuHAsn')
-         .then((data) => data.json())
-          .then((data) => {
-            console.log(data.data.image);
-            document.getElementById('image').src = data.data.image
-            document.getElementById('title').innerHTML = data.data.description
-          })
-      }
-    </script>
+    <script src="bundle.js"></script>
   </body>
 </html>

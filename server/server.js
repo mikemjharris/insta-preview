@@ -23,12 +23,19 @@ app.set('view engine', 'ejs')
 
 const https = require('https');
 
+const TEST_DATA = {
+  description: 'Test description',
+  image: '/images/favicon.png'
+}
+
 app.get('/api/image-data/*', (req, response) => {
   const path = req.path.match(/image-data\/(.*)/)[1];
   console.log(path);
   let data = ""
   const url ='https://www.instagram.com/' + path + '/';
   console.log(url);
+  response.send( { data: TEST_DATA});
+  return
   try {
     https.get(url, (res) => {
           res.on('data', (d) => {
