@@ -45,7 +45,7 @@ const getInstaData = (path) => {
         res.on('end', () => {
           const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
           const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
-          resolve({ image: image, description: description});
+          resolve({ image: image, description: description.replace('“', '').replace("”", '')});
         })
       }).on('error', (e) => {
         console.error(e);
