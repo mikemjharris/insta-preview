@@ -25,10 +25,11 @@ const https = require('https');
 
 const getInstaData = (path) => {
   let data = ""
-  const url ='https://www.instagram.com/' + path + '/';
+  const url ='https://www.instagram.com' + path + '/';
   console.log(url);
   return new Promise((resolve, reject) => {
-    if (process.evn.DATA == 'test') {
+    if (process.env.DATA == 'test') {
+      console.log('here');
       const TEST_DATA = {
         description: 'Test description',
         image: '/images/favicon.png'
@@ -60,7 +61,7 @@ const getInstaData = (path) => {
 }
 
 app.get('/api/image-data/*', (req, response) => {
-  const path = req.path.match(/image-data\/(.*)/)[1];
+  const path = req.path.match(/image-data(\/.*)/)[1];
   console.log(path);
   getInstaData(path)
   .then((data) => {
@@ -71,7 +72,7 @@ app.get('/api/image-data/*', (req, response) => {
 app.get('/p/*', (req, response) => {
   console.log(req.path, "***");
   let data = ""
-  const path ='https://www.instagram.com' + req.path + '/';
+  const path =  req.path;
   getInstaData(path)
   .then((data) => {
     response.send({ data: data})
