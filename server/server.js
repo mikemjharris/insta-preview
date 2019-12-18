@@ -75,7 +75,7 @@ app.get('/p/*', (req, response) => {
   const path =  req.path;
   getInstaData(path)
   .then((data) => {
-    response.render('home', { data: { image: image, description: description}})
+    response.render('home', { data: data})
   })
 })
 
