@@ -25,7 +25,9 @@ const https = require('https');
 
 const getInstaData = (path) => {
   let data = ""
-  const url ='https://www.instagram.com' + path + '/';
+  const trailingSlash = path.slice(-1) !== '/' ? '/' : '';
+  const url ='https://www.instagram.com' + path + trailingSlash;
+
   console.log(url);
   return new Promise((resolve, reject) => {
     if (process.env.DATA == 'test') {
