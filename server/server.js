@@ -45,9 +45,15 @@ const getInstaData = (path) => {
           data += d
         });
         res.on('end', () => {
-          const image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
-          const description = data.match(new RegExp(/og:title.*content="(.*)"/))[1];
-          resolve({ image: image, description: description.replace('“', '').replace("”", '')});
+          let image = '';
+          let description = '';
+          try {
+            image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
+            description = data.match(new RegExp(/og:title.*content="(.*)/))[1];
+          } catch (e) {
+            console.log('missing one of image/description');
+          }
+          resolve({ image: image, description: description.replace('"', '').replace('“', '').replace("”", '')});
         })
       }).on('error', (e) => {
         console.error(e);
