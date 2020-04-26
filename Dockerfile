@@ -1,4 +1,4 @@
-FROM node:9
+FROM node:12
 MAINTAINER Mike Harris "hello@mikemjharris.com"
 
 ADD package.json /tmp/package.json

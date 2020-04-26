@@ -5,6 +5,12 @@ const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+try {
+  fs.mkdirSync(path.join(__dirname, '../logs/'), { recursive: true });
+} catch (e) {
+  console.log(e);
+}
+
 const accessLogStream = fs.createWriteStream(path.join(__dirname, '../logs/access.log'), { flags: 'a' })
 
 const app = express();
