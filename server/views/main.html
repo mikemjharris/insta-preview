@@ -6,36 +6,45 @@
     <link  rel='stylesheet' href='style.css' />
     <link rel="icon"href="/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
-  </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+    </script>
   </head>
   <body>
-    <h1>Instagram twitter preview</h1>
-    <p>Creae a twitter preview card for your instagram post.</p>
+    <section>
+      <h1>Instagram twitter preview</h1>
+      <h2>Create a twitter preview card for your instagram post.</h2>
+      <ol>
+        <li>Find an image in instagram, click on the image and then copy the url (something like https://www.instagram.com/p/B5F0TjuHAsn/) into the box below. </li>
 
-    <p>Find an image in instagram, click on the image and then copy the url (something like https://www.instagram.com/p/B5F0TjuHAsn/) into the box below. </p>
+        <li>Click the button to create a shareable link</li>
+        <li>Paste link into tweet</li>
+      </ol>
 
-    <p>Click the preview button to get a preview or the copy button then paste into your tweet</p>
 
-    <input id="inputLink" placeholder="https://www.instagram.com/p/B5F0TjuHAsn/" type="text" />
-    <br>
 
-    <input id="url">
+      <div id="input">
+        <input id="inputLink" placeholder="e.g. https://www.instagram.com/p/B5F0TjuHAsn/" type="text" />
+        <br>
+        <button id="copy">Click to create shareable preview link</button>
+      </div>
 
-    </div><button id="preview">preview</button><button id="copy">Copy link to share</button>
-
-    <div class="input-group">
-      <span class="input-group-button">
-        <button id="copyLink" type="button" data-clipboard-demo="" data-clipboard-target="#url">
-           Copy to clip board
-          <img class="clippy" src="assets/images/clippy.svg" width="13" >
-        </button>
-      </span>
-    </div>
-    <h1 id="title"></h1>
-    <img id="image" src=""/>
-
-    <div id="link"></div>
+      <div id="copied">
+        <p>Link copied to clipboard! Now go paste it in <a href="https://twitter.com" target="_blank">twitter</a></p>
+      </div>
+      <div id="output">
+        <input id="url"<div class="output">
+          <div class="input-group">
+            <span class="input-group-button">
+              <button id="copyLink" type="button" data-clipboard-demo="" data-clipboard-target="#url">
+                Copy to clip board
+              </button>
+            </span>
+          </div>
+          <h4>Image and description</h4>
+          <img id="image" src=""/>
+          <p id="title"></p>
+        </div>
+    </section>
     <script src="bundle.js"></script>
   </body>
 </html>

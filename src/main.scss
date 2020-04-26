@@ -4,6 +4,13 @@
 
 body{
   padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+p {
+  font-size: 18px;
 }
 
 h1 {
@@ -12,25 +19,39 @@ h1 {
 
 section {
   min-height: 80vh;
+  max-width: 600px;
 }
 
 input, button {
+  max-width: 600px;
+  width: 100%;
   font-size: 1.5em;
-  padding: 10px;
-  margin: 10px;
+  padding: 20px 0;
+  margin: 20px 0;
+  text-align: center;
 }
 
-input {
-  width: 100%;
-  max-width: 600px;
-}
 
 button {
   cursor: pointer;
 }
 
-#image {
-  width: 600px;
-  height: 314px;
+#copied {
+  font-weight: bold;
+  font-size: 20px;
 }
 
+#title, #image {
+  max-width: 300px;
+}
+
+#copyLink {
+  cusor: copy;
+}
+
+#output, #copied {
+  display: none;
+  &.show {
+    display: block;
+  }
+}
