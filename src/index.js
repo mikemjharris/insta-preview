@@ -3,8 +3,8 @@ console.log('Setup');
 import './main.scss'
 
 
-document.getElementById('copy').onclick = () => {
-
+document.getElementById('input').onsubmit= (e) => {
+  e.preventDefault();
   const inputLink = document.getElementById('inputLink').value;
 
   const matches = inputLink.match(/(https:\/\/)?instagram.com(\/p\/[0-9A-z]+)/)
