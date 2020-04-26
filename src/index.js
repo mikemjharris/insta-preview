@@ -7,7 +7,7 @@ document.getElementById('input').onsubmit= (e) => {
   e.preventDefault();
   const inputLink = document.getElementById('inputLink').value;
 
-  const matches = inputLink.match(/(https:\/\/)?instagram.com(\/p\/[0-9A-z]+)/)
+  const matches = inputLink.match(/(https:\/\/)?instagram.com(\/p\/[-_0-9A-z]+)/)
 
   if (!matches) {
     console.log('No match! handle errors');
