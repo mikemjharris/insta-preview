@@ -49,7 +49,8 @@ const getInstaData = (path) => {
           let description = '';
           try {
             image = data.match(new RegExp(/og:image.*content="(.*)"/))[1];
-            description = data.match(new RegExp(/og:title.*content="(.*)/))[1];
+            description = data.match(new RegExp(/og:title.*content="(.*)\/>/))[1];
+            console.log(description);
           } catch (e) {
             console.log('missing one of image/description');
           }
