@@ -1,17 +1,17 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-try {
-  fs.mkdirSync(path.join(__dirname, '../logs/'), { recursive: true });
-} catch (e) {
-  console.log(e);
-}
+const fs = require('fs-extra');
+const logFile = path.join(__dirname, '../logs/access.log');
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, '../logs/access.log'), { flags: 'a' })
+fs.ensureFile(logFile, err => {
+    console.log(err) // => null
+});
+
+const accessLogStream = fs.createWriteStream(logFile, { flags: 'a' })
 
 const app = express();
 
