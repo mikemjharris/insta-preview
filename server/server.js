@@ -1,8 +1,11 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '../logs/access.log'), { flags: 'a' })
 
 const app = express();
 
@@ -11,6 +14,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.engine('html', require('ejs').renderFile);
 
+// setup the logger
+app.use(logger('combined', { stream: accessLogStream }))
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());

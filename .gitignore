@@ -6,3 +6,5 @@ public/stylesheets/canvas_game.css
 
 public/dist
 dist
+
+logs/*.log
