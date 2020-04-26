@@ -15,7 +15,7 @@ document.getElementById('input').onsubmit= (e) => {
     return
   }
 
-  const url =`http://instagram.mikemjharris.com${matches[2]}`;
+  const url =`https://instagram.mikemjharris.com${matches[2]}`;
   document.getElementById('url').value = url;
   const clipboard = new ClipboardJS('#copyLink');
 
