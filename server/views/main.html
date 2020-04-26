@@ -6,11 +6,10 @@
     <link  rel='stylesheet' href='style.css' />
     <link rel="icon"href="/images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
   </script>
   </head>
   <body>
-    <h1>**This page doesn't work yey***</h1>
     <h1>Instagram twitter preview</h1>
     <p>Creae a twitter preview card for your instagram post.</p>
 
@@ -20,12 +19,23 @@
 
     <input id="inputLink" placeholder="https://www.instagram.com/p/B5F0TjuHAsn/" type="text" />
     <br>
-    <button id="preview">preview</button><button id="copy">Copy link to share</button>
+
+    <input id="url">
+
+    </div><button id="preview">preview</button><button id="copy">Copy link to share</button>
+
+    <div class="input-group">
+      <span class="input-group-button">
+        <button id="copyLink" type="button" data-clipboard-demo="" data-clipboard-target="#url">
+           Copy to clip board
+          <img class="clippy" src="assets/images/clippy.svg" width="13" >
+        </button>
+      </span>
+    </div>
     <h1 id="title"></h1>
-    <img id="image" src="" />
+    <img id="image" src=""/>
 
     <div id="link"></div>
-
     <script src="bundle.js"></script>
   </body>
 </html>
